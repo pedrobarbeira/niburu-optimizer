@@ -149,25 +149,53 @@ namespace sql{
         drop_table(dbCtx, stmt.name);
     }
 
-    void select_everything(sqlite3* dbCtx, const std::string& name){
+    void select_from(sqlite3* dbCtx, const std::string& name){
         std::stringstream ss;
         std::string data = "Callback function called";
         ss << STATEMENTS.SELECT << " * FROM " << name << ";";
         execute_statement(dbCtx, ss.str(), data);
     }
 
-    void select_from(sqlite3* dbCtx, const select_stmt& stmt){
+    void select_values_from(sqlite3* dbCtx, const select_stmt& stmt){
         std::stringstream ss;
         std::string data = "Callback function called";
         ss << STATEMENTS.SELECT << " * FROM " << stmt.name << ";";
         execute_statement(dbCtx, ss.str(), data);
     }
 
+    void select_values_where(sqlite3* dbCtx, const select_stmt& stmt){
+        std::stringstream ss;
+        std::string data = "Callback function called";
+        ss << STATEMENTS.SELECT << " * FROM " << stmt.name << ";";
+        execute_statement(dbCtx, ss.str(), data);
+    }
+
+    void insert_where(std::stringstream& ss, std::vector<std::string> conditions){
+        open_bracket(ss, "WHERE");
+        insert_strings(ss, std::move(conditions), ", ");
+        close_bracket(ss, ":");
+    }
+
+    void select_where(sqlite3* dbCtx, const select_stmt& stmt){
+        std::stringstream ss;
+        std::string data = "Callback function called";
+        ss << STATEMENTS.SELECT << " * FROM " << stmt.name;
+        insert_where(ss, stmt.conditions);
+        execute_statement(dbCtx, ss.str(), data);
+    }
+
     void execute(sqlite3* dbCtx, const select_stmt& stmt){
-        if(stmt.values.empty()){
-            return select_everything(dbCtx, stmt.name);
+        if(!stmt.values.empty() && !stmt.conditions.empty()){
+            return select_values_where(dbCtx, stmt);
         }
-        select_from(dbCtx, stmt);
+        if(!stmt.values.empty()){
+            select_values_from(dbCtx, stmt);
+        }
+        if(!stmt.conditions.empty()){
+            select_where(dbCtx, stmt);
+        }
+
+        return select_from(dbCtx, stmt.name);
     }
 }
 

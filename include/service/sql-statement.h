@@ -54,10 +54,19 @@ namespace sql{
 
     struct select_stmt : public stmt_t{
         std::vector<std::string> values;
+        std::vector<std::string> conditions;
+
+        select_stmt(std::string name,
+                    std::vector<std::string> values,
+                    std::vector<std::string> conditions)
+            : stmt_t(std::move(name)){
+            this->values = std::move(values);
+            this->conditions = conditions;
+        }
 
         select_stmt(std::string name, std::vector<std::string> values)
             : stmt_t(std::move(name)){
-            this-> values = std::move(values);
+            this->values = std::move(values);
         }
 
         explicit select_stmt(std::string name) : select_stmt(std::move(name), {}){}
