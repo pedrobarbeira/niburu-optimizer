@@ -24,7 +24,7 @@ Lastly, players can own several planets, which can communicate - send resources 
 ## Instalation
 Compile and run. Will add a proper Makefile as soon as possible.
 
-The system automatically creates a sqlite3 database with constant value tlempates.
+The system automatically creates a sqlite3 database with constant value tempates.
 
 ## Documentation
 
