@@ -7,21 +7,22 @@
 
 #include <vector>
 #include "../model/combat-unit.h"
+#include "sql/table.h";
 
 class UnitOfWork{
 private:
-    std::vector<CombatUnit*> defenses;
-    std::vector<CombatUnit*> fleet;
+    Table<CombatUnit> defenses;
+    Table<CombatUnit> fleet;
 
 public:
     UnitOfWork(){
-        this->defenses.clear();
-        this->fleet.clear();
+        this->defenses = Table<CombatUnit>("defenses");
+        this->fleet = Table<CombatUnit>("fleet");
     }
 
     void load(){
-        this->defenses = loadDefenses();
-        this->fleet = loadFleet();
+        this->defenses.load();
+        this->fleet.load();
     }
 };
 

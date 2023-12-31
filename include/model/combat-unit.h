@@ -73,12 +73,15 @@ struct defense_t{
 class CombatUnit{
 private:
     std::string name;
-    int quantity;
-    resource_t* cost;
-    weapon_t* weapons;
-    defense_t* defenses;
-    int resourceCost;
+    int quantity{};
+    resource_t* cost{};
+    weapon_t* weapons{};
+    defense_t* defenses{};
+    int resourceCost{};
 protected:
+
+    CombatUnit(){}
+
     CombatUnit(const std::string& name, resource_t* cost, weapon_t* weapons, defense_t* defenses) {
         this->name = name;
         this->quantity = 1;
@@ -151,8 +154,5 @@ public:
         return os;
     }
 };
-
-std::vector<CombatUnit*> loadDefenses();
-std::vector<CombatUnit*> loadFleet();
 
 #endif //NIBURU_OPTIMIZER_COMBAT_UNIT_H

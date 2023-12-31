@@ -19,9 +19,15 @@ class Table{
     }
 
 public:
+    explicit Table(){}
+
     explicit Table(const std::string& name){
         this->name = name;
         data.clear();
+    }
+
+    void load(){
+
     }
 
     T* get(std::string id){
