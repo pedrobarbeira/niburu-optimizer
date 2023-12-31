@@ -2,7 +2,7 @@
 #include <cmath>
 #include <sqlite3.h>
 
-#include "include/service/sql.h"
+#include "include/service/unit-of-work/sql.h"
 
 std::string str_from_ch(char* str){
 	int size;
