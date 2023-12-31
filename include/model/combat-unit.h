@@ -152,8 +152,7 @@ public:
     }
 };
 
-CombatUnit* get(){
-
-}
+std::vector<CombatUnit*> loadDefenses();
+std::vector<CombatUnit*> loadFleet();
 
 #endif //NIBURU_OPTIMIZER_COMBAT_UNIT_H

@@ -6,20 +6,12 @@
 #define NIBURU_OPTIMIZER_UNIT_OF_WORK_H
 
 #include <vector>
-#include "../combat-unit/defense-unit/defense.h"
+#include "../model/combat-unit.h"
 
 class UnitOfWork{
 private:
     std::vector<CombatUnit*> defenses;
     std::vector<CombatUnit*> fleet;
-
-    void loadDefenses(){
-
-    }
-
-    void loadFleet(){
-
-    }
 
 public:
     UnitOfWork(){
@@ -28,8 +20,8 @@ public:
     }
 
     void load(){
-        this->loadDefenses();
-        this->loadFleet();
+        this->defenses = loadDefenses();
+        this->fleet = loadFleet();
     }
 };
 
